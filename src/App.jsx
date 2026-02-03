@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import CurrencyCalculator from './calculator-v3.jsx';
+import CurrencyCalculator, { useTranslation } from './calculator-v3.jsx';
 
 export default function App() {
+  const { t } = useTranslation();
   const [showUpdateToast, setShowUpdateToast] = useState(false);
   const [waitingWorker, setWaitingWorker] = useState(null);
 
@@ -67,7 +68,7 @@ export default function App() {
           zIndex: 9999,
           maxWidth: 'calc(100% - 40px)',
         }}>
-          <span>🔄 Доступно обновление</span>
+          <span>{t("update.available")}</span>
           <button
             onClick={handleUpdate}
             style={{
@@ -82,7 +83,7 @@ export default function App() {
               fontWeight: 600,
             }}
           >
-            Обновить
+            {t("update.button")}
           </button>
           <button
             onClick={dismissToast}

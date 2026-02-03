@@ -6,35 +6,35 @@ test.describe('FOP Currency Calculator', () => {
   });
 
   test('should load calculator UI', async ({ page }) => {
-    // Check header is visible
-    await expect(page.locator('text=ФОП $ → ₴ → $ → Revolut → zł')).toBeVisible();
+    // Check header is visible (language-independent)
+    await expect(page.locator('text=FOP $ → ₴ → $ → Revolut → zł')).toBeVisible();
 
-    // Check main input is visible
-    await expect(page.locator('text=Сумма с ФОП (USD)')).toBeVisible();
+    // Check main input is visible (English is default)
+    await expect(page.locator('text=FOP amount (USD)')).toBeVisible();
   });
 
   test('should have rate refresh button', async ({ page }) => {
-    const refreshButton = page.locator('button', { hasText: 'Обновить курсы' });
+    const refreshButton = page.locator('button', { hasText: 'Refresh rates' });
     await expect(refreshButton).toBeVisible();
   });
 
   test('should show spinner during rate loading', async ({ page }) => {
-    const refreshButton = page.locator('button', { hasText: 'Обновить курсы' });
+    const refreshButton = page.locator('button', { hasText: 'Refresh rates' });
     await refreshButton.click();
 
     // Spinner should appear (or loading text)
-    await expect(page.locator('text=Загрузка')).toBeVisible();
+    await expect(page.locator('text=Loading')).toBeVisible();
   });
 
   test('should toggle between forward and reverse modes', async ({ page }) => {
     // Default is forward mode
-    await expect(page.locator('text=Сколько получу?')).toBeVisible();
+    await expect(page.locator('text=How much will I get?')).toBeVisible();
 
     // Click reverse mode
-    await page.locator('button', { hasText: 'Сколько нужно?' }).click();
+    await page.locator('button', { hasText: 'How much do I need?' }).click();
 
     // Should show target input
-    await expect(page.locator('text=Целевая сумма (PLN)')).toBeVisible();
+    await expect(page.locator('text=Target amount (PLN)')).toBeVisible();
   });
 
   test('should calculate forward conversion', async ({ page }) => {
@@ -46,15 +46,15 @@ test.describe('FOP Currency Calculator', () => {
     await expect(page.locator('text=pipeline breakdown')).toBeVisible();
 
     // Check result card is shown
-    await expect(page.locator('text=итого на счету')).toBeVisible();
+    await expect(page.locator('text=total on account')).toBeVisible();
   });
 
   test('should show fee breakdown', async ({ page }) => {
     // Check fees section exists
-    await expect(page.locator('text=потери на комиссиях')).toBeVisible();
+    await expect(page.locator('text=fee losses')).toBeVisible();
 
     // Check specific fee items
-    await expect(page.locator('text=Спред ПриватБанка')).toBeVisible();
+    await expect(page.locator('text=PrivatBank spread')).toBeVisible();
   });
 
   test('should change top-up method', async ({ page }) => {
@@ -67,10 +67,10 @@ test.describe('FOP Currency Calculator', () => {
 
   test('should toggle weekend mode', async ({ page }) => {
     // Click weekend button
-    await page.locator('button', { hasText: 'Выходные' }).click();
+    await page.locator('button', { hasText: 'Weekend' }).click();
 
     // Check weekend is active (button style changes)
-    const weekendButton = page.locator('button', { hasText: 'Выходные' });
+    const weekendButton = page.locator('button', { hasText: 'Weekend' });
     await expect(weekendButton).toHaveCSS('background-color', 'rgba(239, 68, 68, 0.3)');
   });
 
@@ -80,7 +80,7 @@ test.describe('FOP Currency Calculator', () => {
     await input.fill('5000');
 
     // Click reset
-    await page.locator('button', { hasText: 'Сброс' }).click();
+    await page.locator('button', { hasText: 'Reset' }).click();
 
     // Check value is reset to 1000
     await expect(input).toHaveValue('1000');
@@ -88,14 +88,14 @@ test.describe('FOP Currency Calculator', () => {
 
   test('should handle reverse calculation', async ({ page }) => {
     // Switch to reverse mode
-    await page.locator('button', { hasText: 'Сколько нужно?' }).click();
+    await page.locator('button', { hasText: 'How much do I need?' }).click();
 
     // Enter target PLN
     const targetInput = page.locator('input[type="number"]').first();
     await targetInput.fill('4000');
 
     // Check reverse calculation is shown
-    await expect(page.locator('text=обратный расчёт')).toBeVisible();
-    await expect(page.locator('text=нужно с фоп')).toBeVisible();
+    await expect(page.locator('text=reverse calculation')).toBeVisible();
+    await expect(page.locator('text=needed from fop')).toBeVisible();
   });
 });
