@@ -139,6 +139,7 @@ const TRANSLATIONS = {
     "api.advanced.title": "Advanced settings",
     "api.advanced.expand": "Show advanced",
     "api.advanced.collapse": "Hide advanced",
+    "api.advanced.required": "Advanced (required for this provider)",
 
     // CORS explanation
     "api.cors.title": "CORS Proxy",
@@ -302,6 +303,7 @@ const TRANSLATIONS = {
     "api.advanced.title": "Розширені налаштування",
     "api.advanced.expand": "Показати розширені",
     "api.advanced.collapse": "Сховати розширені",
+    "api.advanced.required": "Розширені (обов'язково для цього провайдера)",
 
     // CORS explanation
     "api.cors.title": "CORS Проксі",
@@ -465,6 +467,7 @@ const TRANSLATIONS = {
     "api.advanced.title": "Расширенные настройки",
     "api.advanced.expand": "Показать расширенные",
     "api.advanced.collapse": "Скрыть расширенные",
+    "api.advanced.required": "Расширенные (обязательно для этого провайдера)",
 
     // CORS explanation
     "api.cors.title": "CORS Прокси",
@@ -1263,9 +1266,13 @@ export default function CurrencyCalculator() {
 
           {/* Advanced Section */}
           <AdvancedSection
-            title={advancedExpanded || needsProxy ? t("api.advanced.collapse") : t("api.advanced.expand")}
+            title={needsProxy
+              ? t("api.advanced.required")
+              : (advancedExpanded ? t("api.advanced.collapse") : t("api.advanced.expand"))
+            }
             expanded={advancedExpanded || needsProxy}
             onToggle={() => setAdvancedExpanded(!advancedExpanded)}
+            disabled={needsProxy}
           >
             <CorsProxyInfo t={t} corsProxy={corsProxy} needsProxy={needsProxy} />
 
@@ -1820,7 +1827,7 @@ function FallbackChainDisplay({ chain, t, providers }) {
   );
 }
 
-function AdvancedSection({ title, expanded, onToggle, children }) {
+function AdvancedSection({ title, expanded, onToggle, disabled, children }) {
   return (
     <div style={{
       marginTop: 12,
@@ -1828,13 +1835,14 @@ function AdvancedSection({ title, expanded, onToggle, children }) {
       paddingTop: 12,
     }}>
       <button
-        onClick={onToggle}
+        onClick={disabled ? undefined : onToggle}
         style={{
           background: "transparent",
           border: "none",
           color: "#64748b",
           fontSize: 11,
-          cursor: "pointer",
+          cursor: disabled ? "default" : "pointer",
+          opacity: disabled ? 0.7 : 1,
           display: "flex",
           alignItems: "center",
           gap: 6,

@@ -17,9 +17,9 @@ Live at: GitHub Pages (`/fop-calc/`)
 src/
   main.jsx          - React 18 entry point
   App.jsx           - Root component with PWA update notifications
-  calculator-v3.jsx - Main calculator component (~1385 lines, includes i18n)
+  calculator-v3.jsx - Main calculator component (~1400 lines, includes i18n)
 tests/
-  calculator.spec.ts - Playwright test suite (10 tests)
+  calculator.spec.ts - Playwright test suite (15 tests)
 public/
   *.png, favicon.svg - PWA icons and favicon
 vite.config.js      - Vite + PWA plugin configuration
@@ -57,10 +57,10 @@ npm run test:ui  # Run tests with interactive UI
 **`TOP_UP_FEES`** - 5 methods:
 | Method | Fee | Model |
 |--------|-----|-------|
-| Google Pay MC | 0.0% | additive |
-| Google Pay Visa | 1.5% | additive |
-| Apple Pay | 1.0% | additive |
-| Direct Card | 1.49% | subtractive |
+| Google/Apple Pay (MC) | 1.0% | additive |
+| Google/Apple Pay (Visa) | 2.5% | additive |
+| Card directly (MC) | 1.3% | subtractive |
+| Card directly (Visa) | 2.5% | subtractive |
 | P2P | 0.0% | none |
 
 **`REVOLUT_PLANS`** - 5 tiers:
@@ -72,8 +72,8 @@ npm run test:ui  # Run tests with interactive UI
 | Metal | 0.5% | unlimited |
 | Ultra | 0.0% | unlimited |
 
-**`UAH_PROVIDERS`**: Monobank (CORS ✓), PrivatBank (CORS ✗), NBU
-**`PLN_PROVIDERS`**: ExchangeRate-API (CORS ✓), NBU cross-rate
+**`UAH_PROVIDERS`**: Monobank (CORS ✓), PrivatBank (CORS ✗), MinFin (CORS ✗), NBU (CORS ✓)
+**`PLN_PROVIDERS`**: ExchangeRate-API (CORS ✓), Frankfurter (CORS ✓), NBU cross-rate (CORS ✓)
 
 ## API Endpoints
 
@@ -81,16 +81,18 @@ npm run test:ui  # Run tests with interactive UI
 |----------|----------|------|-------|
 | Monobank | `api.monobank.ua/bank/currency` | ✓ | Returns buy/sell rates |
 | PrivatBank | `api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11` | ✗ | Needs proxy |
+| MinFin | `minfin.com.ua/api/currency/auction/nbu/interbank` | ✗ | Needs proxy |
 | NBU | `bank.gov.ua/NBUStatService/v1/statdirectory/exchange` | ✓ | Official rate only |
 | ExchangeRate | `open.er-api.com/v6/latest/USD` | ✓ | USD/PLN rate |
+| Frankfurter | `api.frankfurter.dev/v1/latest` | ✓ | ECB reference rate |
 
-**CORS Proxies**: corsproxy.io, allorigins.win (configurable in UI)
+**CORS Proxies**: corsproxy.io, allorigins.win, cors.lol, cors.sh (configurable in UI)
 
 ## Key Functions
 
 - `fetchWithTimeout()` - 8s timeout wrapper using AbortController
-- `fetchMonobank()` / `fetchPrivatBank()` / `fetchNBU()` - UAH rate fetchers
-- `fetchExchangeRateAPI()` / `fetchNBU_PLN()` - PLN rate fetchers
+- `fetchMonobank()` / `fetchPrivatBank()` / `fetchMinFin()` / `fetchNBU()` - UAH rate fetchers
+- `fetchExchangeRateAPI()` / `fetchFrankfurter()` / `fetchNBU_PLN()` - PLN rate fetchers
 - `calcTopUp()` / `reverseTopUp()` - bidirectional top-up fee calculation
 - `calcRevolutFees()` / `reverseRevolutFees()` - weekend/fair-use fee calculation
 - `round2()` / `ceil2()` / `safeDivide()` - monetary math helpers
@@ -114,6 +116,10 @@ Playwright tests in `tests/calculator.spec.ts` cover:
 - Top-up method selection
 - Weekend mode toggle
 - Reset functionality
+- Help tooltips
+- Advanced section toggle
+- UAH/PLN provider selection
+- Language switching
 
 ## Internationalization (i18n)
 
