@@ -58,7 +58,7 @@ test.describe('FOP Currency Calculator', () => {
   });
 
   test('should change top-up method', async ({ page }) => {
-    const select = page.locator('select').nth(2); // Top-up method select
+    const select = page.locator('select').nth(3); // Top-up method select (after UAH, PLN, CORS)
     await select.selectOption('p2p');
 
     // Check P2P is selected
