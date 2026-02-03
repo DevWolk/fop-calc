@@ -540,8 +540,23 @@ export function useTranslation() {
   return { t, lang, setLang };
 }
 
+// ─── Responsive Breakpoint Hook ───
+function useBreakpoint() {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth < 600
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return { isMobile };
+}
+
 // ─── Language Selector Component ───
-function LanguageSelector({ lang, setLang }) {
+function LanguageSelector({ lang, setLang, isMobile }) {
   const languages = [
     { code: "en", flag: "🇬🇧", label: "EN" },
     { code: "uk", flag: "🇺🇦", label: "UA" },
@@ -549,7 +564,7 @@ function LanguageSelector({ lang, setLang }) {
   ];
 
   return (
-    <div style={{ display: "flex", gap: 4 }}>
+    <div style={{ display: "flex", gap: isMobile ? 6 : 4 }}>
       {languages.map(({ code, flag, label }) => (
         <button
           key={code}
@@ -558,15 +573,16 @@ function LanguageSelector({ lang, setLang }) {
             background: lang === code ? "rgba(99, 102, 241, 0.3)" : "transparent",
             border: lang === code ? "1px solid rgba(99, 102, 241, 0.5)" : "1px solid transparent",
             color: lang === code ? "#e2e8f0" : "#64748b",
-            padding: "4px 8px",
+            padding: isMobile ? "10px 14px" : "4px 8px",
             borderRadius: 6,
             cursor: "pointer",
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 11,
+            fontSize: isMobile ? 12 : 11,
             display: "flex",
             alignItems: "center",
             gap: 4,
             transition: "all 0.2s",
+            minHeight: isMobile ? 44 : "auto",
           }}
         >
           <span>{flag}</span>
@@ -888,6 +904,7 @@ async function fetchFrankfurter() {
 // ─── Main Component ───
 export default function CurrencyCalculator() {
   const { t, lang, setLang } = useTranslation();
+  const { isMobile } = useBreakpoint();
   const [s, dispatch] = useReducer(reducer, INITIAL_STATE);
 
   // API state
@@ -1139,7 +1156,8 @@ export default function CurrencyCalculator() {
       background: "linear-gradient(135deg, #0a0e17 0%, #111827 50%, #0f172a 100%)",
       color: "#e2e8f0",
       fontFamily: "'JetBrains Mono', 'Fira Code', 'SF Mono', monospace",
-      padding: "20px",
+      padding: isMobile ? "12px" : "20px",
+      paddingBottom: isMobile ? "max(12px, env(safe-area-inset-bottom))" : "20px",
     }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
@@ -1155,6 +1173,7 @@ export default function CurrencyCalculator() {
           width: 100%;
           outline: none;
           transition: border-color 0.2s;
+          min-height: 44px;
         }
         input[type=number]:focus, select:focus {
           border-color: rgba(99, 102, 241, 0.8);
@@ -1162,29 +1181,49 @@ export default function CurrencyCalculator() {
         }
         input[type=number]::-webkit-inner-spin-button { opacity: 0.5; }
         select { cursor: pointer; font-size: 13px; }
+        input[type=checkbox] {
+          width: 20px;
+          height: 20px;
+          min-width: 20px;
+        }
         @keyframes spin { to { transform: rotate(360deg); } }
         .spinner { animation: spin 1s linear infinite; }
         .checkbox-wrapper {
           display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;
+          min-height: 44px;
         }
         .checkbox-wrapper input { width: auto; cursor: pointer; }
       `}</style>
 
-      <div style={{ maxWidth: 760, margin: "0 auto" }}>
+      <div style={{ maxWidth: isMobile ? "100%" : 760, margin: "0 auto" }}>
         {/* ── Header ── */}
-        <div style={{ textAlign: "center", marginBottom: 24, position: "relative" }}>
-          <div style={{ position: "absolute", top: 0, right: 0 }}>
-            <LanguageSelector lang={lang} setLang={setLang} />
+        <div style={{
+          textAlign: "center",
+          marginBottom: isMobile ? 16 : 24,
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: isMobile ? 12 : 0,
+        }}>
+          {isMobile ? (
+            <LanguageSelector lang={lang} setLang={setLang} isMobile={isMobile} />
+          ) : (
+            <div style={{ position: "absolute", top: 0, right: 0 }}>
+              <LanguageSelector lang={lang} setLang={setLang} isMobile={isMobile} />
+            </div>
+          )}
+          <div>
+            <div style={{
+              fontSize: isMobile ? 10 : 11, letterSpacing: isMobile ? 2 : 4, textTransform: "uppercase", color: "#6366f1", marginBottom: 8,
+            }}>currency pipeline calculator v3</div>
+            <h1 style={{
+              fontFamily: "'Space Grotesk', sans-serif", fontSize: isMobile ? 20 : 28, fontWeight: 700, margin: 0,
+              background: "linear-gradient(90deg, #818cf8, #6366f1, #a78bfa)",
+              WebkitBackgroundClip: "text", backgroundClip: "text",
+              WebkitTextFillColor: "transparent", color: "transparent",
+            }}>FOP $ → ₴ → $ → Revolut → zł</h1>
           </div>
-          <div style={{
-            fontSize: 11, letterSpacing: 4, textTransform: "uppercase", color: "#6366f1", marginBottom: 8,
-          }}>currency pipeline calculator v3</div>
-          <h1 style={{
-            fontFamily: "'Space Grotesk', sans-serif", fontSize: 28, fontWeight: 700, margin: 0,
-            background: "linear-gradient(90deg, #818cf8, #6366f1, #a78bfa)",
-            WebkitBackgroundClip: "text", backgroundClip: "text",
-            WebkitTextFillColor: "transparent", color: "transparent",
-          }}>FOP $ → ₴ → $ → Revolut → zł</h1>
         </div>
 
         {/* ── API Panel ── */}
@@ -1204,7 +1243,7 @@ export default function CurrencyCalculator() {
                 background: loading ? "rgba(99, 102, 241, 0.3)" : "linear-gradient(135deg, #4f46e5, #6366f1)",
                 border: "none",
                 color: "#fff",
-                padding: "8px 16px",
+                padding: isMobile ? "12px 20px" : "8px 16px",
                 borderRadius: 8,
                 cursor: loading ? "wait" : "pointer",
                 fontFamily: "'JetBrains Mono', monospace",
@@ -1213,6 +1252,7 @@ export default function CurrencyCalculator() {
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
+                minHeight: 44,
               }}
             >
               {loading ? (
@@ -1226,11 +1266,11 @@ export default function CurrencyCalculator() {
             </button>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12, marginBottom: 12 }}>
             <div>
               <div style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
                 <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>{t("api.uahProvider")}</span>
-                <HelpIcon tooltip={t(UAH_PROVIDERS[uahProvider].tooltipKey)} />
+                <HelpIcon tooltip={t(UAH_PROVIDERS[uahProvider].tooltipKey)} isMobile={isMobile} />
               </div>
               <select value={uahProvider} onChange={e => setUahProvider(e.target.value)}>
                 {Object.entries(UAH_PROVIDERS).map(([k, v]) => (
@@ -1250,7 +1290,7 @@ export default function CurrencyCalculator() {
             <div>
               <div style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
                 <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>{t("api.plnProvider")}</span>
-                <HelpIcon tooltip={t(PLN_PROVIDERS[plnProvider].tooltipKey)} />
+                <HelpIcon tooltip={t(PLN_PROVIDERS[plnProvider].tooltipKey)} isMobile={isMobile} />
               </div>
               <select value={plnProvider} onChange={e => setPlnProvider(e.target.value)}>
                 {Object.entries(PLN_PROVIDERS).map(([k, v]) => (
@@ -1393,8 +1433,13 @@ export default function CurrencyCalculator() {
 
         {/* ── Mode Toggle ── */}
         <div style={{
-          display: "flex", gap: 8, marginBottom: 20,
-          background: "rgba(15, 23, 42, 0.6)", padding: 4, borderRadius: 10,
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: 8,
+          marginBottom: 20,
+          background: "rgba(15, 23, 42, 0.6)",
+          padding: isMobile ? 6 : 4,
+          borderRadius: 10,
           border: "1px solid rgba(99, 102, 241, 0.15)",
         }}>
           {[
@@ -1402,17 +1447,24 @@ export default function CurrencyCalculator() {
             { key: "reverse", labelKey: "mode.reverse" },
           ].map((m) => (
             <button key={m.key} onClick={() => set("mode", m.key)} style={{
-              flex: 1, padding: "10px 16px", borderRadius: 8, border: "none", cursor: "pointer",
-              fontFamily: "'JetBrains Mono', monospace", fontSize: 12,
+              flex: 1,
+              padding: isMobile ? "14px 16px" : "10px 16px",
+              borderRadius: 8,
+              border: "none",
+              cursor: "pointer",
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: isMobile ? 13 : 12,
               fontWeight: s.mode === m.key ? 600 : 400,
               background: s.mode === m.key ? "linear-gradient(135deg, #4f46e5, #6366f1)" : "transparent",
-              color: s.mode === m.key ? "#fff" : "#64748b", transition: "all 0.2s",
+              color: s.mode === m.key ? "#fff" : "#64748b",
+              transition: "all 0.2s",
+              minHeight: 44,
             }}>{t(m.labelKey)}</button>
           ))}
         </div>
 
         {/* ── Input Grid ── */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 12, marginBottom: 20 }}>
           <div style={{ gridColumn: "1 / -1" }}>
             <Label>{s.mode === "forward" ? t("input.fopUsd") : t("input.targetPln")}</Label>
             {s.mode === "forward" ? (
@@ -1468,11 +1520,18 @@ export default function CurrencyCalculator() {
             <div style={{ display: "flex", gap: 8 }}>
               {[false, true].map(v => (
                 <button key={String(v)} onClick={() => set("isWeekend", v)} style={{
-                  flex: 1, padding: "10px", borderRadius: 8, border: "none", cursor: "pointer",
-                  fontFamily: "'JetBrains Mono', monospace", fontSize: 12,
+                  flex: 1,
+                  padding: isMobile ? "12px" : "10px",
+                  borderRadius: 8,
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 12,
                   fontWeight: s.isWeekend === v ? 600 : 400,
                   background: s.isWeekend === v ? (v ? "rgba(239,68,68,0.3)" : "rgba(34,197,94,0.3)") : "rgba(15,23,42,0.8)",
-                  color: s.isWeekend === v ? "#fff" : "#64748b", transition: "all 0.2s",
+                  color: s.isWeekend === v ? "#fff" : "#64748b",
+                  transition: "all 0.2s",
+                  minHeight: 44,
                 }}>{v ? t("input.weekend") : t("input.weekday")}</button>
               ))}
             </div>
@@ -1482,11 +1541,18 @@ export default function CurrencyCalculator() {
             <NumInput value={s.existingPln} onChange={v => set("existingPln", v)} step="0.01" min={0} />
           </div>
 
-          <div style={{ gridColumn: "1 / -1", textAlign: "right" }}>
+          <div style={{ gridColumn: "1 / -1", textAlign: isMobile ? "center" : "right" }}>
             <button onClick={() => dispatch({ type: "reset" })} style={{
-              background: "transparent", border: "1px solid rgba(100,116,139,0.3)", color: "#64748b",
-              padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 11,
+              background: "transparent",
+              border: "1px solid rgba(100,116,139,0.3)",
+              color: "#64748b",
+              padding: isMobile ? "12px 24px" : "6px 14px",
+              borderRadius: 6,
+              cursor: "pointer",
+              fontSize: isMobile ? 12 : 11,
               fontFamily: "'JetBrains Mono', monospace",
+              width: isMobile ? "100%" : "auto",
+              minHeight: isMobile ? 44 : "auto",
             }}>{t("input.reset")}</button>
           </div>
         </div>
@@ -1526,7 +1592,7 @@ export default function CurrencyCalculator() {
               </Step>
             </div>
 
-            <ResultCard label={t("result.total")} value={fmtPln(calc.totalPln)}>
+            <ResultCard label={t("result.total")} value={fmtPln(calc.totalPln)} isMobile={isMobile}>
               {s.existingPln > 0 && (
                 <div style={{ color: "#64748b", fontSize: 12, marginTop: 4 }}>
                   {t("result.existing", { existing: fmtPln(s.existingPln), new: fmtPln(calc.plnResult) })}
@@ -1539,7 +1605,7 @@ export default function CurrencyCalculator() {
               borderRadius: 12, padding: 16, marginTop: 16,
             }}>
               <SectionHeader color="#f87171">{t("fees.title")}</SectionHeader>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: "6px 16px", fontSize: 13 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: isMobile ? "8px 12px" : "6px 16px", fontSize: 13 }}>
                 <FeeRow label={t("fees.spread")} value={calc.spreadLoss} />
                 <FeeRow label={t("fees.topup")} value={calc.topUpFee} />
                 {calc.weekendFeeAmt > 0 && <FeeRow label={t("fees.weekend")} value={calc.weekendFeeAmt} />}
@@ -1584,7 +1650,7 @@ export default function CurrencyCalculator() {
                   </Step>
                 </div>
 
-                <ResultCard label={t("result.needed")} value={fmtUsd(reverseCalc.fopUsdNeeded)}>
+                <ResultCard label={t("result.needed")} value={fmtUsd(reverseCalc.fopUsdNeeded)} isMobile={isMobile}>
                   <div style={{ color: "#64748b", fontSize: 12, marginTop: 4 }}>
                     {t("result.chain", { uah: fmtUah(reverseCalc.uahNeeded), usd: fmtUsd(reverseCalc.usdToBuy), pln: fmtPln(s.targetPln) })}
                   </div>
@@ -1663,15 +1729,20 @@ function Step({ n, title, desc, children }) {
   );
 }
 
-function ResultCard({ label, value, children }) {
+function ResultCard({ label, value, children, isMobile }) {
   return (
     <div style={{
       background: "linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1))",
-      border: "1px solid rgba(99,102,241,0.4)", borderRadius: 12, padding: 24, textAlign: "center",
+      border: "1px solid rgba(99,102,241,0.4)",
+      borderRadius: 12,
+      padding: isMobile ? 20 : 24,
+      textAlign: "center",
     }}>
       <div style={{ fontSize: 11, letterSpacing: 3, textTransform: "uppercase", color: "#a78bfa", marginBottom: 8 }}>{label}</div>
       <div style={{
-        fontFamily: "'Space Grotesk', sans-serif", fontSize: 40, fontWeight: 700,
+        fontFamily: "'Space Grotesk', sans-serif",
+        fontSize: isMobile ? 32 : 40,
+        fontWeight: 700,
         background: "linear-gradient(90deg, #818cf8, #a78bfa)",
         WebkitBackgroundClip: "text", backgroundClip: "text",
         WebkitTextFillColor: "transparent", color: "transparent",
@@ -1698,13 +1769,35 @@ function FeeRow({ label, value }) {
 
 // ─── New UI Components for Enhanced Provider Section ───
 
-function Tooltip({ text, children }) {
+function Tooltip({ text, children, isMobile }) {
   const [show, setShow] = useState(false);
+
+  // Close on outside click for mobile
+  useEffect(() => {
+    if (!isMobile || !show) return;
+    const handleClick = (e) => {
+      if (!e.target.closest('[data-tooltip]')) {
+        setShow(false);
+      }
+    };
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [isMobile, show]);
+
+  const handleInteraction = (e) => {
+    if (isMobile) {
+      e.stopPropagation();
+      setShow(!show);
+    }
+  };
+
   return (
     <span
+      data-tooltip
       style={{ position: "relative", display: "inline-flex", alignItems: "center" }}
-      onMouseEnter={() => setShow(true)}
-      onMouseLeave={() => setShow(false)}
+      onMouseEnter={() => !isMobile && setShow(true)}
+      onMouseLeave={() => !isMobile && setShow(false)}
+      onClick={handleInteraction}
     >
       {children}
       {show && text && (
@@ -1720,7 +1813,7 @@ function Tooltip({ text, children }) {
           fontSize: 11,
           color: "#e2e8f0",
           whiteSpace: "normal",
-          width: 240,
+          width: isMobile ? "min(240px, calc(100vw - 48px))" : 240,
           zIndex: 100,
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
           lineHeight: 1.5,
@@ -1743,20 +1836,20 @@ function Tooltip({ text, children }) {
   );
 }
 
-function HelpIcon({ tooltip }) {
+function HelpIcon({ tooltip, isMobile }) {
   return (
-    <Tooltip text={tooltip}>
+    <Tooltip text={tooltip} isMobile={isMobile}>
       <span style={{
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        width: 16,
-        height: 16,
+        width: isMobile ? 24 : 16,
+        height: isMobile ? 24 : 16,
         borderRadius: "50%",
         background: "rgba(99, 102, 241, 0.2)",
         border: "1px solid rgba(99, 102, 241, 0.4)",
         color: "#818cf8",
-        fontSize: 10,
+        fontSize: isMobile ? 12 : 10,
         fontWeight: 700,
         cursor: "help",
         marginLeft: 6,

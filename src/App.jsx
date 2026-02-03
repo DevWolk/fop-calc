@@ -52,7 +52,7 @@ export default function App() {
       {showUpdateToast && (
         <div style={{
           position: 'fixed',
-          bottom: 20,
+          bottom: 'max(20px, env(safe-area-inset-bottom))',
           left: '50%',
           transform: 'translateX(-50%)',
           background: 'linear-gradient(135deg, #4f46e5, #6366f1)',
