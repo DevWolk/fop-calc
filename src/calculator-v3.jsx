@@ -751,7 +751,13 @@ export default function CurrencyCalculator() {
                 {calc.topUpFee > 0 && <><br/><Red>Комиссия: −{fmtUsd(calc.topUpFee)}</Red></>}
               </Step>
 
-              <Step n="4" title="$ → zł (Revolut)" desc={s.isWeekend ? "Выходные — комиссия 1%" : "Будни — без доп. комиссии"}>
+              <Step n="4" title="$ → zł (Revolut)" desc={
+                s.isWeekend
+                  ? (REVOLUT_PLANS[s.revolutPlan].weekendFee > 0
+                      ? `Выходные — комиссия ${(REVOLUT_PLANS[s.revolutPlan].weekendFee * 100).toFixed(1)}%`
+                      : "Выходные — без доп. комиссии (план включает)")
+                  : "Будни — без доп. комиссии"
+              }>
                 {fmtUsd(calc.effectiveUsd)} × {s.usdToPlnRate} = <Hl>{fmtPln(calc.plnResult)}</Hl>
                 {calc.weekendFeeAmt > 0 && <><br/><Red>Weekend fee: −{fmtUsd(calc.weekendFeeAmt)}</Red></>}
                 {calc.fairUseFeeAmt > 0 && <><br/><Red>Fair use fee: −{fmtUsd(calc.fairUseFeeAmt)}</Red></>}
@@ -852,6 +858,7 @@ function NumInput({ value, onChange, min, ...rest }) {
     <input
       type="number"
       value={value}
+      onFocus={e => e.target.select()}
       onChange={e => {
         const raw = e.target.value;
         if (raw === "" || raw === "-") { onChange(0); return; }
