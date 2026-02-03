@@ -55,36 +55,38 @@ npm run test:ui  # Run tests with interactive UI
 ## Configuration Objects
 
 **`TOP_UP_FEES`** - 5 methods:
-| Method | Fee | Model |
-|--------|-----|-------|
-| Google/Apple Pay (MC) | 1.0% | additive |
-| Google/Apple Pay (Visa) | 2.5% | additive |
-| Card directly (MC) | 1.3% | subtractive |
-| Card directly (Visa) | 2.5% | subtractive |
-| P2P | 0.0% | none |
+
+| Method                  | Fee  | Model       |
+|-------------------------|------|-------------|
+| Google/Apple Pay (MC)   | 1.0% | additive    |
+| Google/Apple Pay (Visa) | 2.5% | additive    |
+| Card directly (MC)      | 1.3% | subtractive |
+| Card directly (Visa)    | 2.5% | subtractive |
+| P2P                     | 0.0% | none        |
 
 **`REVOLUT_PLANS`** - 5 tiers:
-| Plan | Weekend Fee | Fair-use Threshold |
-|------|-------------|-------------------|
-| Standard | 1.0% | $1,000/mo |
-| Plus | 1.0% | $3,000/mo |
-| Premium | 0.5% | unlimited |
-| Metal | 0.5% | unlimited |
-| Ultra | 0.0% | unlimited |
+
+| Plan     | Weekend Fee | Fair-use Threshold |
+|----------|-------------|--------------------|
+| Standard | 1.0%        | $1,000/mo          |
+| Plus     | 1.0%        | $3,000/mo          |
+| Premium  | 0.5%        | unlimited          |
+| Metal    | 0.5%        | unlimited          |
+| Ultra    | 0.0%        | unlimited          |
 
 **`UAH_PROVIDERS`**: Monobank (CORS ✓), PrivatBank (CORS ✗), MinFin (CORS ✗), NBU (CORS ✓)
 **`PLN_PROVIDERS`**: ExchangeRate-API (CORS ✓), Frankfurter (CORS ✓), NBU cross-rate (CORS ✓)
 
 ## API Endpoints
 
-| Provider | Endpoint | CORS | Notes |
-|----------|----------|------|-------|
-| Monobank | `api.monobank.ua/bank/currency` | ✓ | Returns buy/sell rates |
-| PrivatBank | `api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11` | ✗ | Needs proxy |
-| MinFin | `minfin.com.ua/api/currency/auction/nbu/interbank` | ✗ | Needs proxy |
-| NBU | `bank.gov.ua/NBUStatService/v1/statdirectory/exchange` | ✓ | Official rate only |
-| ExchangeRate | `open.er-api.com/v6/latest/USD` | ✓ | USD/PLN rate |
-| Frankfurter | `api.frankfurter.dev/v1/latest` | ✓ | ECB reference rate |
+| Provider     | Endpoint                                                    | CORS | Notes                  |
+|--------------|-------------------------------------------------------------|------|------------------------|
+| Monobank     | `api.monobank.ua/bank/currency`                             | ✓    | Returns buy/sell rates |
+| PrivatBank   | `api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=11` | ✗    | Needs proxy            |
+| MinFin       | `minfin.com.ua/api/currency/auction/nbu/interbank`          | ✗    | Needs proxy            |
+| NBU          | `bank.gov.ua/NBUStatService/v1/statdirectory/exchange`      | ✓    | Official rate only     |
+| ExchangeRate | `open.er-api.com/v6/latest/USD`                             | ✓    | USD/PLN rate           |
+| Frankfurter  | `api.frankfurter.dev/v1/latest`                             | ✓    | ECB reference rate     |
 
 **CORS Proxies**: corsproxy.io, allorigins.win, cors.lol, cors.sh (configurable in UI)
 
@@ -145,6 +147,40 @@ function LanguageSelector({ lang, setLang }) { ... }
 3. Add button to `LanguageSelector` component
 
 **Storage**: Language preference stored in localStorage (`fop-calc-lang`), auto-detects browser language on first visit.
+
+## Responsive Design
+
+**Breakpoint**: 600px (mobile < 600px, desktop >= 600px)
+
+**Implementation**:
+```javascript
+// In calculator-v3.jsx:
+function useBreakpoint() {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 600);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  return { isMobile };
+}
+```
+
+**Mobile Adaptations**:
+
+| Element              | Mobile               | Desktop                   |
+|----------------------|----------------------|---------------------------|
+| Container padding    | 12px                 | 20px                      |
+| Content maxWidth     | 100%                 | 760px                     |
+| Provider/Input grids | 1 column             | 2 columns                 |
+| Mode toggle          | vertical stack       | horizontal                |
+| Language selector    | centered above title | absolute top-right        |
+| Result card font     | 32px                 | 40px                      |
+| Touch targets        | min 44px height      | auto                      |
+| Tooltips             | click to toggle      | hover                     |
+| Reset button         | full width, centered | auto width, right-aligned |
+
+**Safe Area Support**: Bottom padding uses `env(safe-area-inset-bottom)` for notched phones.
 
 ## Development Notes
 
