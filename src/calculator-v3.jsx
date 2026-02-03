@@ -101,21 +101,67 @@ const TRANSLATIONS = {
     "topup.p2p.note": "Only bank fee",
 
     // Providers
-    "provider.privatbank": "PrivatBank",
-    "provider.privatbank.desc": "Non-cash rate (coursid=11)",
     "provider.monobank": "Monobank",
-    "provider.monobank.desc": "Card rate",
+    "provider.monobank.desc": "Card rate, CORS OK",
+    "provider.monobank.tooltip": "Commercial card rate from Monobank. Updates every 5 minutes. Direct access (no proxy needed). Most reliable option.",
+    "provider.privatbank": "PrivatBank",
+    "provider.privatbank.desc": "Non-cash rate",
+    "provider.privatbank.tooltip": "Non-cash commercial rate (coursid=11). Updates every 5 minutes. Requires CORS proxy for browser access.",
+    "provider.minfin": "MinFin",
+    "provider.minfin.desc": "Aggregated rate",
+    "provider.minfin.tooltip": "Aggregated market rate from minfin.com.ua. Real-time updates. Requires CORS proxy.",
     "provider.nbu": "NBU",
-    "provider.nbu.desc": "Official rate (reference)",
+    "provider.nbu.desc": "Official rate",
+    "provider.nbu.tooltip": "Official National Bank of Ukraine rate. Reference only, not for commercial exchange. Updates daily at 15:00.",
     "provider.exchangerate": "ExchangeRate-API",
-    "provider.exchangerate.desc": "Interbank rate (free)",
+    "provider.exchangerate.desc": "Interbank (free)",
+    "provider.exchangerate.tooltip": "Free interbank rate API. Daily updates. Direct access (no proxy needed). Good for general reference.",
+    "provider.frankfurter": "Frankfurter",
+    "provider.frankfurter.desc": "ECB rate (free)",
+    "provider.frankfurter.tooltip": "European Central Bank reference rate. Daily updates at 16:00 CET. Direct access (no proxy needed). Free and reliable.",
     "provider.nbu_pln": "NBU",
     "provider.nbu_pln.desc": "Cross-rate via EUR",
+    "provider.nbu_pln.tooltip": "Calculated cross-rate USD/PLN via NBU EUR rates. Official reference rate, updates daily.",
 
     // Proxies
     "proxy.direct": "Direct (no proxy)",
+    "proxy.direct.desc": "Direct connection without proxy",
     "proxy.corsproxy": "corsproxy.io",
+    "proxy.corsproxy.desc": "Fast and reliable proxy",
     "proxy.allorigins": "allorigins.win",
+    "proxy.allorigins.desc": "Alternative proxy service",
+    "proxy.corslol": "cors.lol",
+    "proxy.corslol.desc": "Simple CORS proxy",
+    "proxy.corssh": "cors.sh",
+    "proxy.corssh.desc": "Another proxy option",
+
+    // Advanced section
+    "api.advanced.title": "Advanced settings",
+    "api.advanced.expand": "Show advanced",
+    "api.advanced.collapse": "Hide advanced",
+
+    // CORS explanation
+    "api.cors.title": "CORS Proxy",
+    "api.cors.explanation": "Some APIs block browser requests. A proxy forwards requests with correct headers.",
+    "api.cors.neededFor": "Needed for: {providers}",
+    "api.cors.status.working": "Working",
+    "api.cors.status.failed": "Failed",
+    "api.cors.status.untested": "Untested",
+    "api.cors.test": "Test",
+
+    // Fallback reasons
+    "api.fallback.title": "Fallback chain:",
+    "api.fallback.timeout": "Timeout (8s)",
+    "api.fallback.cors": "CORS blocked",
+    "api.fallback.http": "HTTP {code}",
+    "api.fallback.parse": "Parse error",
+    "api.fallback.unknown": "Unknown error",
+
+    // Rate display
+    "api.rate.buy": "Buy",
+    "api.rate.sell": "Sell",
+    "api.rate.rate": "Rate",
+    "api.rate.updated": "Updated",
 
     // Footer & Update
     "footer.disclaimer": "⚠️ Rates are approximate. Check actual values before transaction.",
@@ -218,21 +264,67 @@ const TRANSLATIONS = {
     "topup.p2p.note": "Тільки комісія банку",
 
     // Providers
-    "provider.privatbank": "ПриватБанк",
-    "provider.privatbank.desc": "Безготівковий курс (coursid=11)",
     "provider.monobank": "Monobank",
-    "provider.monobank.desc": "Картковий курс",
+    "provider.monobank.desc": "Картковий курс, CORS OK",
+    "provider.monobank.tooltip": "Комерційний картковий курс Monobank. Оновлюється кожні 5 хв. Прямий доступ (проксі не потрібен). Найнадійніший варіант.",
+    "provider.privatbank": "ПриватБанк",
+    "provider.privatbank.desc": "Безготівковий курс",
+    "provider.privatbank.tooltip": "Безготівковий комерційний курс (coursid=11). Оновлюється кожні 5 хв. Потребує CORS проксі для браузера.",
+    "provider.minfin": "MinFin",
+    "provider.minfin.desc": "Агрегований курс",
+    "provider.minfin.tooltip": "Агрегований ринковий курс з minfin.com.ua. Оновлюється в реальному часі. Потребує CORS проксі.",
     "provider.nbu": "НБУ",
-    "provider.nbu.desc": "Офіційний курс (довідковий)",
+    "provider.nbu.desc": "Офіційний курс",
+    "provider.nbu.tooltip": "Офіційний курс НБУ. Лише для довідки, не для комерційного обміну. Оновлюється щодня о 15:00.",
     "provider.exchangerate": "ExchangeRate-API",
-    "provider.exchangerate.desc": "Міжбанківський курс (безкоштовно)",
+    "provider.exchangerate.desc": "Міжбанк (безкоштовно)",
+    "provider.exchangerate.tooltip": "Безкоштовний міжбанківський курс. Оновлюється щодня. Прямий доступ (проксі не потрібен).",
+    "provider.frankfurter": "Frankfurter",
+    "provider.frankfurter.desc": "Курс ЄЦБ (безкоштовно)",
+    "provider.frankfurter.tooltip": "Довідковий курс Європейського центрального банку. Оновлюється щодня о 16:00 CET. Прямий доступ.",
     "provider.nbu_pln": "НБУ",
     "provider.nbu_pln.desc": "Крос-курс через EUR",
+    "provider.nbu_pln.tooltip": "Розрахований крос-курс USD/PLN через курси EUR НБУ. Офіційний довідковий курс, оновлюється щодня.",
 
     // Proxies
     "proxy.direct": "Напряму (без проксі)",
+    "proxy.direct.desc": "Пряме з'єднання без проксі",
     "proxy.corsproxy": "corsproxy.io",
+    "proxy.corsproxy.desc": "Швидкий та надійний проксі",
     "proxy.allorigins": "allorigins.win",
+    "proxy.allorigins.desc": "Альтернативний проксі",
+    "proxy.corslol": "cors.lol",
+    "proxy.corslol.desc": "Простий CORS проксі",
+    "proxy.corssh": "cors.sh",
+    "proxy.corssh.desc": "Ще один варіант проксі",
+
+    // Advanced section
+    "api.advanced.title": "Розширені налаштування",
+    "api.advanced.expand": "Показати розширені",
+    "api.advanced.collapse": "Сховати розширені",
+
+    // CORS explanation
+    "api.cors.title": "CORS Проксі",
+    "api.cors.explanation": "Деякі API блокують запити з браузера. Проксі перенаправляє запити з правильними заголовками.",
+    "api.cors.neededFor": "Потрібен для: {providers}",
+    "api.cors.status.working": "Працює",
+    "api.cors.status.failed": "Не працює",
+    "api.cors.status.untested": "Не перевірено",
+    "api.cors.test": "Тест",
+
+    // Fallback reasons
+    "api.fallback.title": "Ланцюг fallback:",
+    "api.fallback.timeout": "Таймаут (8с)",
+    "api.fallback.cors": "CORS заблоковано",
+    "api.fallback.http": "HTTP {code}",
+    "api.fallback.parse": "Помилка парсингу",
+    "api.fallback.unknown": "Невідома помилка",
+
+    // Rate display
+    "api.rate.buy": "Купівля",
+    "api.rate.sell": "Продаж",
+    "api.rate.rate": "Курс",
+    "api.rate.updated": "Оновлено",
 
     // Footer & Update
     "footer.disclaimer": "⚠️ Курси приблизні. Перевіряйте актуальні значення перед операцією.",
@@ -335,21 +427,67 @@ const TRANSLATIONS = {
     "topup.p2p.note": "Только комиссия банка",
 
     // Providers
-    "provider.privatbank": "ПриватБанк",
-    "provider.privatbank.desc": "Безналичный курс (coursid=11)",
     "provider.monobank": "Monobank",
-    "provider.monobank.desc": "Карточный курс",
+    "provider.monobank.desc": "Карточный курс, CORS OK",
+    "provider.monobank.tooltip": "Коммерческий карточный курс Monobank. Обновляется каждые 5 мин. Прямой доступ (прокси не нужен). Самый надёжный вариант.",
+    "provider.privatbank": "ПриватБанк",
+    "provider.privatbank.desc": "Безналичный курс",
+    "provider.privatbank.tooltip": "Безналичный коммерческий курс (coursid=11). Обновляется каждые 5 мин. Требует CORS прокси для браузера.",
+    "provider.minfin": "MinFin",
+    "provider.minfin.desc": "Агрегированный курс",
+    "provider.minfin.tooltip": "Агрегированный рыночный курс с minfin.com.ua. Обновляется в реальном времени. Требует CORS прокси.",
     "provider.nbu": "НБУ",
-    "provider.nbu.desc": "Официальный курс (справочный)",
+    "provider.nbu.desc": "Официальный курс",
+    "provider.nbu.tooltip": "Официальный курс НБУ. Только для справки, не для коммерческого обмена. Обновляется ежедневно в 15:00.",
     "provider.exchangerate": "ExchangeRate-API",
-    "provider.exchangerate.desc": "Межбанковский курс (бесплатно)",
+    "provider.exchangerate.desc": "Межбанк (бесплатно)",
+    "provider.exchangerate.tooltip": "Бесплатный межбанковский курс. Обновляется ежедневно. Прямой доступ (прокси не нужен).",
+    "provider.frankfurter": "Frankfurter",
+    "provider.frankfurter.desc": "Курс ЕЦБ (бесплатно)",
+    "provider.frankfurter.tooltip": "Справочный курс Европейского центрального банка. Обновляется ежедневно в 16:00 CET. Прямой доступ.",
     "provider.nbu_pln": "НБУ",
     "provider.nbu_pln.desc": "Кросс-курс через EUR",
+    "provider.nbu_pln.tooltip": "Рассчитанный кросс-курс USD/PLN через курсы EUR НБУ. Официальный справочный курс, обновляется ежедневно.",
 
     // Proxies
     "proxy.direct": "Напрямую (без прокси)",
+    "proxy.direct.desc": "Прямое соединение без прокси",
     "proxy.corsproxy": "corsproxy.io",
+    "proxy.corsproxy.desc": "Быстрый и надёжный прокси",
     "proxy.allorigins": "allorigins.win",
+    "proxy.allorigins.desc": "Альтернативный прокси",
+    "proxy.corslol": "cors.lol",
+    "proxy.corslol.desc": "Простой CORS прокси",
+    "proxy.corssh": "cors.sh",
+    "proxy.corssh.desc": "Ещё один вариант прокси",
+
+    // Advanced section
+    "api.advanced.title": "Расширенные настройки",
+    "api.advanced.expand": "Показать расширенные",
+    "api.advanced.collapse": "Скрыть расширенные",
+
+    // CORS explanation
+    "api.cors.title": "CORS Прокси",
+    "api.cors.explanation": "Некоторые API блокируют запросы из браузера. Прокси перенаправляет запросы с правильными заголовками.",
+    "api.cors.neededFor": "Нужен для: {providers}",
+    "api.cors.status.working": "Работает",
+    "api.cors.status.failed": "Не работает",
+    "api.cors.status.untested": "Не проверено",
+    "api.cors.test": "Тест",
+
+    // Fallback reasons
+    "api.fallback.title": "Цепочка fallback:",
+    "api.fallback.timeout": "Таймаут (8с)",
+    "api.fallback.cors": "CORS заблокировано",
+    "api.fallback.http": "HTTP {code}",
+    "api.fallback.parse": "Ошибка парсинга",
+    "api.fallback.unknown": "Неизвестная ошибка",
+
+    // Rate display
+    "api.rate.buy": "Покупка",
+    "api.rate.sell": "Продажа",
+    "api.rate.rate": "Курс",
+    "api.rate.updated": "Обновлено",
 
     // Footer & Update
     "footer.disclaimer": "⚠️ Курсы приблизительные. Проверяйте актуальные значения перед операцией.",
@@ -455,20 +593,37 @@ const REVOLUT_PLANS = {
 
 // ─── API Providers Configuration ───
 const UAH_PROVIDERS = {
-  privatbank: {
-    labelKey: "provider.privatbank",
-    descKey: "provider.privatbank.desc",
-    hasCors: false,
-  },
   monobank: {
     labelKey: "provider.monobank",
     descKey: "provider.monobank.desc",
+    tooltipKey: "provider.monobank.tooltip",
     hasCors: true,
+    rateType: "commercial",
+    updateFrequency: "5min",
+  },
+  privatbank: {
+    labelKey: "provider.privatbank",
+    descKey: "provider.privatbank.desc",
+    tooltipKey: "provider.privatbank.tooltip",
+    hasCors: false,
+    rateType: "commercial",
+    updateFrequency: "5min",
+  },
+  minfin: {
+    labelKey: "provider.minfin",
+    descKey: "provider.minfin.desc",
+    tooltipKey: "provider.minfin.tooltip",
+    hasCors: false,
+    rateType: "commercial",
+    updateFrequency: "realtime",
   },
   nbu: {
     labelKey: "provider.nbu",
     descKey: "provider.nbu.desc",
+    tooltipKey: "provider.nbu.tooltip",
     hasCors: true,
+    rateType: "official",
+    updateFrequency: "daily",
   },
 };
 
@@ -476,19 +631,35 @@ const PLN_PROVIDERS = {
   exchangerate: {
     labelKey: "provider.exchangerate",
     descKey: "provider.exchangerate.desc",
+    tooltipKey: "provider.exchangerate.tooltip",
     hasCors: true,
+    rateType: "interbank",
+    updateFrequency: "daily",
+  },
+  frankfurter: {
+    labelKey: "provider.frankfurter",
+    descKey: "provider.frankfurter.desc",
+    tooltipKey: "provider.frankfurter.tooltip",
+    hasCors: true,
+    rateType: "ecb",
+    updateFrequency: "daily",
   },
   nbu_pln: {
     labelKey: "provider.nbu_pln",
     descKey: "provider.nbu_pln.desc",
+    tooltipKey: "provider.nbu_pln.tooltip",
     hasCors: true,
+    rateType: "official",
+    updateFrequency: "daily",
   },
 };
 
 const CORS_PROXIES = [
-  { url: "", labelKey: "proxy.direct" },
-  { url: "https://corsproxy.io/?", labelKey: "proxy.corsproxy" },
-  { url: "https://api.allorigins.win/raw?url=", labelKey: "proxy.allorigins" },
+  { url: "", labelKey: "proxy.direct", descKey: "proxy.direct.desc" },
+  { url: "https://corsproxy.io/?", labelKey: "proxy.corsproxy", descKey: "proxy.corsproxy.desc" },
+  { url: "https://api.allorigins.win/raw?url=", labelKey: "proxy.allorigins", descKey: "proxy.allorigins.desc" },
+  { url: "https://api.cors.lol/?url=", labelKey: "proxy.corslol", descKey: "proxy.corslol.desc" },
+  { url: "https://proxy.cors.sh/", labelKey: "proxy.corssh", descKey: "proxy.corssh.desc" },
 ];
 
 // ISO 4217 currency codes
@@ -585,6 +756,26 @@ function reverseRevolutFees(plnNeeded, usdToPlnRate, planInfo, isWeekend) {
 }
 
 // ─── API Fetchers ───
+
+// Error classification for fallback display
+function classifyError(error) {
+  const msg = error?.message || String(error);
+  if (msg.includes("aborted") || msg.includes("timeout") || msg.toLowerCase().includes("timeout")) {
+    return { type: "timeout", key: "api.fallback.timeout" };
+  }
+  if (msg.includes("CORS") || msg.includes("cors") || msg.includes("NetworkError") || msg.includes("Failed to fetch")) {
+    return { type: "cors", key: "api.fallback.cors" };
+  }
+  const httpMatch = msg.match(/HTTP (\d+)/);
+  if (httpMatch) {
+    return { type: "http", key: "api.fallback.http", code: httpMatch[1] };
+  }
+  if (msg.includes("parse") || msg.includes("Parse") || msg.includes("JSON") || msg.includes("not found")) {
+    return { type: "parse", key: "api.fallback.parse" };
+  }
+  return { type: "unknown", key: "api.fallback.unknown", message: msg };
+}
+
 async function fetchWithTimeout(url, timeoutMs = 8000) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -592,6 +783,11 @@ async function fetchWithTimeout(url, timeoutMs = 8000) {
     const response = await fetch(url, { signal: controller.signal });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     return await response.json();
+  } catch (error) {
+    if (error.name === "AbortError") {
+      throw new Error("Timeout (8s)");
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
@@ -654,12 +850,36 @@ async function fetchNBU_PLN() {
   );
   const usd = data.find(r => r.cc === "USD");
   const pln = data.find(r => r.cc === "PLN");
-  
+
   if (!usd?.rate || !pln?.rate) throw new Error("Rates not found");
-  
+
   // USD/PLN = (USD/UAH) / (PLN/UAH)
   const rate = usd.rate / pln.rate;
   return { rate, isOfficial: true };
+}
+
+async function fetchMinFin(corsProxy = "") {
+  // MinFin API - aggregated market rate
+  const baseUrl = "https://api.minfin.com.ua/mb/";
+  const url = corsProxy ? corsProxy + encodeURIComponent(baseUrl) : baseUrl;
+
+  const data = await fetchWithTimeout(url);
+  const usd = data.find(r => r.currency === "usd");
+  if (!usd) throw new Error("USD not found");
+
+  return {
+    buy: parseFloat(usd.bid),
+    sell: parseFloat(usd.ask),
+  };
+}
+
+async function fetchFrankfurter() {
+  // Frankfurter API - ECB reference rate
+  const data = await fetchWithTimeout("https://api.frankfurter.app/latest?from=USD&to=PLN");
+  if (!data?.rates?.PLN) {
+    throw new Error("PLN rate not found");
+  }
+  return { rate: data.rates.PLN };
 }
 
 // ─── Main Component ───
@@ -677,21 +897,27 @@ export default function CurrencyCalculator() {
   const [loading, setLoading] = useState(false);
   const [ratesInfo, setRatesInfo] = useState(null);
   const [errors, setErrors] = useState([]);
+  const [advancedExpanded, setAdvancedExpanded] = useState(false);
+
+  // Auto-expand advanced section when provider needs proxy
+  const needsProxy = !UAH_PROVIDERS[uahProvider]?.hasCors;
   
   const set = (field, value) => dispatch({ type: "set", field, value });
 
   // ─── Fetch UAH rates ───
   const fetchUahRates = useCallback(async (provider, proxy) => {
-    const attempts = [];
+    const fallbackChain = [];
 
     const tryProvider = async (p) => {
       switch (p) {
-        case "privatbank":
-          return { ...(await fetchPrivatBank(proxy)), sourceKey: "provider.privatbank" };
         case "monobank":
-          return { ...(await fetchMonobank()), sourceKey: "provider.monobank" };
+          return { ...(await fetchMonobank()), sourceKey: "provider.monobank", provider: p };
+        case "privatbank":
+          return { ...(await fetchPrivatBank(proxy)), sourceKey: "provider.privatbank", provider: p };
+        case "minfin":
+          return { ...(await fetchMinFin(proxy)), sourceKey: "provider.minfin", provider: p };
         case "nbu":
-          return { ...(await fetchNBU()), sourceKey: "provider.nbu" };
+          return { ...(await fetchNBU()), sourceKey: "provider.nbu", provider: p };
         default:
           throw new Error("Unknown provider");
       }
@@ -699,69 +925,89 @@ export default function CurrencyCalculator() {
 
     // Try selected provider first
     try {
-      return await tryProvider(provider);
+      const result = await tryProvider(provider);
+      fallbackChain.push({ provider, success: true });
+      result.fallbackChain = fallbackChain;
+      return result;
     } catch (e) {
-      attempts.push({ provider, error: e.message });
+      const errorInfo = classifyError(e);
+      fallbackChain.push({ provider, success: false, error: errorInfo });
     }
 
     // Fallback if enabled
     if (autoFallback) {
-      const fallbackOrder = ["monobank", "privatbank", "nbu"].filter(p => p !== provider);
+      const fallbackOrder = ["monobank", "privatbank", "minfin", "nbu"].filter(p => p !== provider);
       for (const fb of fallbackOrder) {
         try {
           const result = await tryProvider(fb);
+          fallbackChain.push({ provider: fb, success: true });
           result.fallback = true;
           result.originalProvider = provider;
+          result.fallbackChain = fallbackChain;
           return result;
         } catch (e) {
-          attempts.push({ provider: fb, error: e.message });
+          const errorInfo = classifyError(e);
+          fallbackChain.push({ provider: fb, success: false, error: errorInfo });
         }
       }
     }
 
-    // Return error with details for translation
-    const details = attempts.map(a => `${a.provider}: ${a.error}`).join("; ");
-    throw new Error(details);
+    // Return error with details
+    const details = fallbackChain.map(a => `${a.provider}: ${a.error?.type || "error"}`).join("; ");
+    const error = new Error(details);
+    error.fallbackChain = fallbackChain;
+    throw error;
   }, [autoFallback]);
 
   // ─── Fetch PLN rate ───
-  const fetchPlnRate = useCallback(async (provider) => {
-    const attempts = [];
+  const fetchPlnRate = useCallback(async (provider, proxy) => {
+    const fallbackChain = [];
 
     const tryProvider = async (p) => {
       switch (p) {
         case "exchangerate":
-          return { ...(await fetchExchangeRateAPI()), sourceKey: "provider.exchangerate" };
+          return { ...(await fetchExchangeRateAPI()), sourceKey: "provider.exchangerate", provider: p };
+        case "frankfurter":
+          return { ...(await fetchFrankfurter()), sourceKey: "provider.frankfurter", provider: p };
         case "nbu_pln":
-          return { ...(await fetchNBU_PLN()), sourceKey: "provider.nbu_pln" };
+          return { ...(await fetchNBU_PLN()), sourceKey: "provider.nbu_pln", provider: p };
         default:
           throw new Error("Unknown provider");
       }
     };
 
     try {
-      return await tryProvider(provider);
+      const result = await tryProvider(provider);
+      fallbackChain.push({ provider, success: true });
+      result.fallbackChain = fallbackChain;
+      return result;
     } catch (e) {
-      attempts.push({ provider, error: e.message });
+      const errorInfo = classifyError(e);
+      fallbackChain.push({ provider, success: false, error: errorInfo });
     }
 
     if (autoFallback) {
-      const fallbackOrder = ["exchangerate", "nbu_pln"].filter(p => p !== provider);
+      const fallbackOrder = ["exchangerate", "frankfurter", "nbu_pln"].filter(p => p !== provider);
       for (const fb of fallbackOrder) {
         try {
           const result = await tryProvider(fb);
+          fallbackChain.push({ provider: fb, success: true });
           result.fallback = true;
           result.originalProvider = provider;
+          result.fallbackChain = fallbackChain;
           return result;
         } catch (e) {
-          attempts.push({ provider: fb, error: e.message });
+          const errorInfo = classifyError(e);
+          fallbackChain.push({ provider: fb, success: false, error: errorInfo });
         }
       }
     }
 
-    // Return error with details for translation
-    const details = attempts.map(a => `${a.provider}: ${a.error}`).join("; ");
-    throw new Error(details);
+    // Return error with details
+    const details = fallbackChain.map(a => `${a.provider}: ${a.error?.type || "error"}`).join("; ");
+    const error = new Error(details);
+    error.fallbackChain = fallbackChain;
+    throw error;
   }, [autoFallback]);
 
   // ─── Load all rates ───
@@ -779,27 +1025,36 @@ export default function CurrencyCalculator() {
         uahToUsdSell: uah.sell,
       }});
       info.uah = {
+        selected: uahProvider,
+        active: uah.provider,
         sourceKey: uah.sourceKey,
         fallback: uah.fallback,
         originalProvider: uah.originalProvider,
+        fallbackChain: uah.fallbackChain,
         isOfficial: uah.isOfficial,
+        buy: uah.buy,
+        sell: uah.sell,
       };
     } catch (e) {
-      newErrors.push({ type: "uah", details: e.message });
+      newErrors.push({ type: "uah", details: e.message, fallbackChain: e.fallbackChain });
     }
 
     // Fetch PLN
     try {
-      const pln = await fetchPlnRate(plnProvider);
+      const pln = await fetchPlnRate(plnProvider, corsProxy);
       dispatch({ type: "set", field: "usdToPlnRate", value: pln.rate });
       info.pln = {
+        selected: plnProvider,
+        active: pln.provider,
         sourceKey: pln.sourceKey,
         fallback: pln.fallback,
         originalProvider: pln.originalProvider,
+        fallbackChain: pln.fallbackChain,
         isOfficial: pln.isOfficial,
+        rate: pln.rate,
       };
     } catch (e) {
-      newErrors.push({ type: "pln", details: e.message });
+      newErrors.push({ type: "pln", details: e.message, fallbackChain: e.fallbackChain });
     }
 
     setRatesInfo(info);
@@ -968,96 +1223,137 @@ export default function CurrencyCalculator() {
             </button>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
             <div>
-              <Label>{t("api.uahProvider")}</Label>
+              <div style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
+                <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>{t("api.uahProvider")}</span>
+                <HelpIcon tooltip={t(UAH_PROVIDERS[uahProvider].tooltipKey)} />
+              </div>
               <select value={uahProvider} onChange={e => setUahProvider(e.target.value)}>
                 {Object.entries(UAH_PROVIDERS).map(([k, v]) => (
                   <option key={k} value={k}>{t(v.labelKey)}</option>
                 ))}
               </select>
-              <div style={{ fontSize: 10, color: "#64748b", marginTop: 4 }}>
+              <div style={{ fontSize: 11, color: "#64748b", marginTop: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                {UAH_PROVIDERS[uahProvider].hasCors ? (
+                  <span style={{ color: "#22c55e" }}>✓</span>
+                ) : (
+                  <span style={{ color: "#f59e0b" }}>⚠</span>
+                )}
                 {t(UAH_PROVIDERS[uahProvider].descKey)}
-                {!UAH_PROVIDERS[uahProvider].hasCors && ` ${t("api.needsProxy")}`}
               </div>
             </div>
 
             <div>
-              <Label>{t("api.plnProvider")}</Label>
+              <div style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
+                <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>{t("api.plnProvider")}</span>
+                <HelpIcon tooltip={t(PLN_PROVIDERS[plnProvider].tooltipKey)} />
+              </div>
               <select value={plnProvider} onChange={e => setPlnProvider(e.target.value)}>
                 {Object.entries(PLN_PROVIDERS).map(([k, v]) => (
                   <option key={k} value={k}>{t(v.labelKey)}</option>
                 ))}
               </select>
-              <div style={{ fontSize: 10, color: "#64748b", marginTop: 4 }}>
+              <div style={{ fontSize: 11, color: "#64748b", marginTop: 4, display: "flex", alignItems: "center", gap: 6 }}>
+                <span style={{ color: "#22c55e" }}>✓</span>
                 {t(PLN_PROVIDERS[plnProvider].descKey)}
               </div>
             </div>
+          </div>
 
-            <div>
-              <Label>{t("api.corsProxy")}</Label>
+          {/* Advanced Section */}
+          <AdvancedSection
+            title={advancedExpanded || needsProxy ? t("api.advanced.collapse") : t("api.advanced.expand")}
+            expanded={advancedExpanded || needsProxy}
+            onToggle={() => setAdvancedExpanded(!advancedExpanded)}
+          >
+            <CorsProxyInfo t={t} corsProxy={corsProxy} needsProxy={needsProxy} />
+
+            <div style={{ marginBottom: 12 }}>
+              <div style={{ display: "flex", alignItems: "center", marginBottom: 6 }}>
+                <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>{t("api.cors.title")}</span>
+              </div>
               <select value={corsProxy} onChange={e => setCorsProxy(e.target.value)}>
                 {CORS_PROXIES.map((p, i) => (
                   <option key={i} value={p.url}>{t(p.labelKey)}</option>
                 ))}
               </select>
-              <div style={{ fontSize: 10, color: "#64748b", marginTop: 4 }}>
-                {t("api.forPrivatBank")}
-              </div>
             </div>
-          </div>
 
-          <div style={{ display: "flex", gap: 20, marginBottom: 12 }}>
-            <label className="checkbox-wrapper" style={{ fontSize: 12, color: "#94a3b8" }}>
-              <input
-                type="checkbox"
-                checked={autoFallback}
-                onChange={e => setAutoFallback(e.target.checked)}
-              />
-              {t("api.autoFallback")}
-            </label>
-            <label className="checkbox-wrapper" style={{ fontSize: 12, color: "#94a3b8" }}>
-              <input
-                type="checkbox"
-                checked={autoLoad}
-                onChange={e => setAutoLoad(e.target.checked)}
-              />
-              {t("api.autoLoad")}
-            </label>
-          </div>
+            <div style={{ display: "flex", gap: 20 }}>
+              <label className="checkbox-wrapper" style={{ fontSize: 12, color: "#94a3b8" }}>
+                <input
+                  type="checkbox"
+                  checked={autoFallback}
+                  onChange={e => setAutoFallback(e.target.checked)}
+                />
+                {t("api.autoFallback")}
+              </label>
+              <label className="checkbox-wrapper" style={{ fontSize: 12, color: "#94a3b8" }}>
+                <input
+                  type="checkbox"
+                  checked={autoLoad}
+                  onChange={e => setAutoLoad(e.target.checked)}
+                />
+                {t("api.autoLoad")}
+              </label>
+            </div>
+          </AdvancedSection>
 
           {/* Status */}
           {ratesInfo && (
             <div style={{
               background: "rgba(34, 197, 94, 0.1)",
               border: "1px solid rgba(34, 197, 94, 0.3)",
-              borderRadius: 8, padding: 10, fontSize: 11,
+              borderRadius: 8, padding: 12, fontSize: 11, marginTop: 12,
             }}>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "8px 16px" }}>
-                {ratesInfo.uah && (
-                  <span>
-                    <span style={{ color: "#64748b" }}>{t("api.status.uah")}</span>{" "}
-                    <span style={{ color: "#22c55e" }}>{t(ratesInfo.uah.sourceKey)}</span>
-                    {ratesInfo.uah.fallback && (
-                      <span style={{ color: "#f59e0b" }}> {t("api.status.fallback", { provider: t(UAH_PROVIDERS[ratesInfo.uah.originalProvider]?.labelKey) })}</span>
-                    )}
-                    {ratesInfo.uah.isOfficial && (
-                      <span style={{ color: "#64748b" }}> {t("api.status.official")}</span>
-                    )}
-                  </span>
-                )}
-                {ratesInfo.pln && (
-                  <span>
-                    <span style={{ color: "#64748b" }}>{t("api.status.pln")}</span>{" "}
-                    <span style={{ color: "#22c55e" }}>{t(ratesInfo.pln.sourceKey)}</span>
-                    {ratesInfo.pln.fallback && (
-                      <span style={{ color: "#f59e0b" }}> {t("api.status.fallback", { provider: t(PLN_PROVIDERS[ratesInfo.pln.originalProvider]?.labelKey) })}</span>
-                    )}
-                  </span>
-                )}
-                <span style={{ color: "#64748b" }}>
-                  {ratesInfo.timestamp?.toLocaleTimeString()}
-                </span>
+              {/* UAH Rate Info */}
+              {ratesInfo.uah && (
+                <div style={{ marginBottom: ratesInfo.pln ? 10 : 0 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <span style={{ color: "#64748b" }}>{t("api.status.uah")}</span>
+                      <StatusIndicator status="working" />
+                      <span style={{ color: "#22c55e", fontWeight: 600 }}>{t(ratesInfo.uah.sourceKey)}</span>
+                      {ratesInfo.uah.isOfficial && (
+                        <span style={{ color: "#64748b", fontSize: 10 }}>{t("api.status.official")}</span>
+                      )}
+                    </div>
+                    <div style={{ color: "#94a3b8", fontSize: 10 }}>
+                      {t("api.rate.buy")}: {ratesInfo.uah.buy?.toFixed(2)} / {t("api.rate.sell")}: {ratesInfo.uah.sell?.toFixed(2)}
+                    </div>
+                  </div>
+                  {ratesInfo.uah.fallback && ratesInfo.uah.fallbackChain && (
+                    <FallbackChainDisplay chain={ratesInfo.uah.fallbackChain} t={t} providers={UAH_PROVIDERS} />
+                  )}
+                </div>
+              )}
+
+              {/* PLN Rate Info */}
+              {ratesInfo.pln && (
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <span style={{ color: "#64748b" }}>{t("api.status.pln")}</span>
+                      <StatusIndicator status="working" />
+                      <span style={{ color: "#22c55e", fontWeight: 600 }}>{t(ratesInfo.pln.sourceKey)}</span>
+                      {ratesInfo.pln.isOfficial && (
+                        <span style={{ color: "#64748b", fontSize: 10 }}>{t("api.status.official")}</span>
+                      )}
+                    </div>
+                    <div style={{ color: "#94a3b8", fontSize: 10 }}>
+                      {t("api.rate.rate")}: {ratesInfo.pln.rate?.toFixed(4)}
+                    </div>
+                  </div>
+                  {ratesInfo.pln.fallback && ratesInfo.pln.fallbackChain && (
+                    <FallbackChainDisplay chain={ratesInfo.pln.fallbackChain} t={t} providers={PLN_PROVIDERS} />
+                  )}
+                </div>
+              )}
+
+              {/* Timestamp */}
+              <div style={{ color: "#64748b", fontSize: 10, marginTop: 8, textAlign: "right" }}>
+                {t("api.rate.updated")}: {ratesInfo.timestamp?.toLocaleTimeString()}
               </div>
             </div>
           )}
@@ -1070,9 +1366,18 @@ export default function CurrencyCalculator() {
             }}>
               {errors.map((e, i) => (
                 <div key={i}>
-                  ⚠️ {e.type === "uah"
-                    ? t("api.error.allUnavailable", { details: e.details })
-                    : t("api.error.plnUnavailable", { details: e.details })}
+                  <div>
+                    ⚠️ {e.type === "uah"
+                      ? t("api.error.allUnavailable", { details: e.details })
+                      : t("api.error.plnUnavailable", { details: e.details })}
+                  </div>
+                  {e.fallbackChain && (
+                    <FallbackChainDisplay
+                      chain={e.fallbackChain}
+                      t={t}
+                      providers={e.type === "uah" ? UAH_PROVIDERS : PLN_PROVIDERS}
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -1382,4 +1687,200 @@ function FeeRow({ label, value }) {
     <span style={{ color: "#94a3b8" }}>{label}:</span>
     <span style={{ textAlign: "right", color: "#f87171" }}>−{fmtUsd(value)}</span>
   </>;
+}
+
+// ─── New UI Components for Enhanced Provider Section ───
+
+function Tooltip({ text, children }) {
+  const [show, setShow] = useState(false);
+  return (
+    <span
+      style={{ position: "relative", display: "inline-flex", alignItems: "center" }}
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+    >
+      {children}
+      {show && text && (
+        <div style={{
+          position: "absolute",
+          bottom: "calc(100% + 8px)",
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "rgba(15, 23, 42, 0.95)",
+          border: "1px solid rgba(99, 102, 241, 0.4)",
+          borderRadius: 8,
+          padding: "10px 12px",
+          fontSize: 11,
+          color: "#e2e8f0",
+          whiteSpace: "normal",
+          width: 240,
+          zIndex: 100,
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+          lineHeight: 1.5,
+        }}>
+          {text}
+          <div style={{
+            position: "absolute",
+            bottom: -6,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 0,
+            height: 0,
+            borderLeft: "6px solid transparent",
+            borderRight: "6px solid transparent",
+            borderTop: "6px solid rgba(99, 102, 241, 0.4)",
+          }} />
+        </div>
+      )}
+    </span>
+  );
+}
+
+function HelpIcon({ tooltip }) {
+  return (
+    <Tooltip text={tooltip}>
+      <span style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 16,
+        height: 16,
+        borderRadius: "50%",
+        background: "rgba(99, 102, 241, 0.2)",
+        border: "1px solid rgba(99, 102, 241, 0.4)",
+        color: "#818cf8",
+        fontSize: 10,
+        fontWeight: 700,
+        cursor: "help",
+        marginLeft: 6,
+      }}>?</span>
+    </Tooltip>
+  );
+}
+
+function StatusIndicator({ status }) {
+  const colors = {
+    working: "#22c55e",
+    failed: "#ef4444",
+    untested: "#64748b",
+  };
+  return (
+    <span style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 4,
+      fontSize: 10,
+      color: colors[status] || colors.untested,
+    }}>
+      <span style={{
+        width: 6,
+        height: 6,
+        borderRadius: "50%",
+        background: colors[status] || colors.untested,
+      }} />
+    </span>
+  );
+}
+
+function FallbackChainDisplay({ chain, t, providers }) {
+  if (!chain || chain.length <= 1) return null;
+
+  return (
+    <div style={{
+      marginTop: 8,
+      padding: "8px 10px",
+      background: "rgba(245, 158, 11, 0.1)",
+      border: "1px solid rgba(245, 158, 11, 0.3)",
+      borderRadius: 6,
+      fontSize: 10,
+    }}>
+      <div style={{ color: "#f59e0b", fontWeight: 600, marginBottom: 4 }}>
+        ⚡ {t("api.fallback.title")}
+      </div>
+      {chain.map((attempt, i) => (
+        <div key={i} style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+          color: attempt.success ? "#22c55e" : "#94a3b8",
+          marginTop: 2,
+        }}>
+          <span>{attempt.success ? "✓" : "✗"}</span>
+          <span>{t(providers[attempt.provider]?.labelKey || attempt.provider)}</span>
+          {!attempt.success && attempt.error && (
+            <span style={{ color: "#64748b" }}>
+              — {attempt.error.code
+                ? t(attempt.error.key, { code: attempt.error.code })
+                : t(attempt.error.key)}
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AdvancedSection({ title, expanded, onToggle, children }) {
+  return (
+    <div style={{
+      marginTop: 12,
+      borderTop: "1px dashed rgba(99, 102, 241, 0.2)",
+      paddingTop: 12,
+    }}>
+      <button
+        onClick={onToggle}
+        style={{
+          background: "transparent",
+          border: "none",
+          color: "#64748b",
+          fontSize: 11,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: 6,
+          padding: 0,
+          fontFamily: "'JetBrains Mono', monospace",
+        }}
+      >
+        <span style={{
+          display: "inline-block",
+          transition: "transform 0.2s",
+          transform: expanded ? "rotate(90deg)" : "rotate(0deg)",
+        }}>▸</span>
+        {title}
+      </button>
+      {expanded && (
+        <div style={{ marginTop: 12 }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CorsProxyInfo({ t, corsProxy, needsProxy }) {
+  const providersNeedingProxy = Object.entries(UAH_PROVIDERS)
+    .filter(([, v]) => !v.hasCors)
+    .map(([k]) => t(UAH_PROVIDERS[k].labelKey))
+    .join(", ");
+
+  return (
+    <div style={{
+      background: "rgba(99, 102, 241, 0.05)",
+      border: "1px solid rgba(99, 102, 241, 0.2)",
+      borderRadius: 8,
+      padding: 10,
+      marginBottom: 12,
+      fontSize: 11,
+    }}>
+      <div style={{ color: "#94a3b8", marginBottom: 6 }}>
+        {t("api.cors.explanation")}
+      </div>
+      {providersNeedingProxy && (
+        <div style={{ color: "#f59e0b" }}>
+          ⚠ {t("api.cors.neededFor", { providers: providersNeedingProxy })}
+        </div>
+      )}
+    </div>
+  );
 }

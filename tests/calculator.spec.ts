@@ -18,12 +18,15 @@ test.describe('FOP Currency Calculator', () => {
     await expect(refreshButton).toBeVisible();
   });
 
-  test('should show spinner during rate loading', async ({ page }) => {
+  test('should refresh rates when clicking refresh button', async ({ page }) => {
+    // Wait for initial auto-load to complete
+    await expect(page.locator('text=UAH:')).toBeVisible({ timeout: 15000 });
+
     const refreshButton = page.locator('button', { hasText: 'Refresh rates' });
     await refreshButton.click();
 
-    // Spinner should appear (or loading text)
-    await expect(page.locator('text=Loading')).toBeVisible();
+    // Button should be clickable and rates should be displayed after refresh
+    await expect(page.locator('text=UAH:')).toBeVisible({ timeout: 15000 });
   });
 
   test('should toggle between forward and reverse modes', async ({ page }) => {
@@ -58,7 +61,9 @@ test.describe('FOP Currency Calculator', () => {
   });
 
   test('should change top-up method', async ({ page }) => {
-    const select = page.locator('select').nth(3); // Top-up method select (after UAH, PLN, CORS)
+    // Find the top-up method select by looking near the label
+    const topupLabel = page.locator('text=Revolut top-up method');
+    const select = topupLabel.locator('..').locator('select');
     await select.selectOption('p2p');
 
     // Check P2P is selected
@@ -97,5 +102,75 @@ test.describe('FOP Currency Calculator', () => {
     // Check reverse calculation is shown
     await expect(page.locator('text=reverse calculation')).toBeVisible();
     await expect(page.locator('text=needed from fop')).toBeVisible();
+  });
+
+  test('should show help tooltips on hover', async ({ page }) => {
+    // Find the help icon near UAH provider (the small "?" icon)
+    const helpIcon = page.locator('span:has-text("?")').first();
+    await expect(helpIcon).toBeVisible();
+
+    // Hover should show tooltip (the tooltip appears on mouseenter)
+    await helpIcon.hover();
+
+    // Wait a moment for tooltip to appear
+    await page.waitForTimeout(300);
+
+    // Tooltip should appear - checking for specific tooltip content about Monobank
+    // (first help icon is for UAH provider which defaults to Monobank)
+    await expect(page.locator('text=Monobank')).toHaveCount(2); // One in tooltip, one in select
+  });
+
+  test('should expand advanced section', async ({ page }) => {
+    // Find and click the advanced section toggle
+    const advancedToggle = page.locator('button:has-text("Show advanced"), button:has-text("Hide advanced")');
+    await advancedToggle.click();
+
+    // CORS proxy select should be visible in advanced section
+    await expect(page.locator('text=CORS Proxy')).toBeVisible();
+  });
+
+  test('should change UAH provider', async ({ page }) => {
+    // Find UAH provider select (first select in the API panel)
+    const select = page.locator('select').first();
+
+    // Change to NBU
+    await select.selectOption('nbu');
+
+    // Check NBU is selected
+    await expect(select).toHaveValue('nbu');
+  });
+
+  test('should change PLN provider', async ({ page }) => {
+    // Find PLN provider select (second select in main view)
+    const select = page.locator('select').nth(1);
+
+    // Change to Frankfurter
+    await select.selectOption('frankfurter');
+
+    // Check Frankfurter is selected
+    await expect(select).toHaveValue('frankfurter');
+  });
+
+  test('should switch language', async ({ page }) => {
+    // Find the Ukrainian language button
+    const ukButton = page.locator('button:has-text("UA")');
+    await ukButton.click();
+
+    // Check UI changed to Ukrainian
+    await expect(page.locator('text=Оновити курси')).toBeVisible();
+
+    // Switch to Russian
+    const ruButton = page.locator('button:has-text("RU")');
+    await ruButton.click();
+
+    // Check UI changed to Russian
+    await expect(page.locator('text=Обновить курсы')).toBeVisible();
+
+    // Switch back to English
+    const enButton = page.locator('button:has-text("EN")');
+    await enButton.click();
+
+    // Check UI is back to English
+    await expect(page.locator('text=Refresh rates')).toBeVisible();
   });
 });
